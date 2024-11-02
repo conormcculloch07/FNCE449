@@ -1,4 +1,4 @@
-# Conor McCulloch FNCE 449: Trading and Market Data Management Term Project
+# Conor McCulloch - FNCE 449: Trading and Market Data Management Term Project
 My name is Conor McCulloch, and I am a third year finance student at the Haskayne School of Business at the Univeristy of Calgary. This github account and readme was craeted for my term project for the course FNCE 449: Trading and Market Data Management. Below is my code for a portfolio optimization of a select group of 5 assets from the Oil and Gas Exploration and Production (E&P) industry. The 5 assets are: Birchcliff Energy Ltd. (BIR.TO), Paramount Resources Ltd. (POU.TO), Tourmaline Oil Corp. (TOU.TO), Canadian Natural Resources Ltd. (CNQ.TO), and Imperial Oil Ltd. (IMO.TO). This code seeks to explore how adding an additional factor for ESG will impact how the optimal portfolio will be made, and how companies with poor ESG scores will be penalized in the creation of a portfolio.
 # CODE FOR PORTFOLIO OPTIMIZATION WITH NO ESG FACTOR
 import pandas as pd
