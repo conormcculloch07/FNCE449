@@ -1,4 +1,3 @@
-# CODE FOR PORTFOLIO OPTIMIZATION WITH NO ESG FACTOR
 import pandas as pd
 import numpy as np
 import yfinance as yf
@@ -30,7 +29,7 @@ def portfolio_performance(weights, mean_returns, cov_matrix):
     portfolio_volatility = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
     return portfolio_return, portfolio_volatility
 
-# Objective function: Sharpe Ratio maximization (negative for minimization)
+# Objective function - Sharpe Ratio maximization
 def negative_sharpe_ratio(weights, mean_returns, cov_matrix, risk_free_rate=0.04):
     """
     This function returns - sharpe ratio
@@ -55,12 +54,12 @@ optimal_sharpe_ratio = (optimal_return - risk_free_rate) / optimal_volatility
 
 # Print optimal portfolio metrics
 print(tickers)
-print("Optimal Weights:", optimal_weights)
+print("Optimal Weights:", np.round(optimal_weights,4))
 print("Expected Portfolio Return:", optimal_return)
 print("Expected Portfolio Volatility (Risk):", optimal_volatility)
 print("Optimal Sharpe Ratio:", optimal_sharpe_ratio)
 
-# Plot Efficient Frontier
+# Ploting the Efficient Frontier
 def plot_efficient_frontier(mean_returns, cov_matrix, num_portfolios=50000, risk_free_rate=0.04):
     results = np.zeros((3, num_portfolios))
     for i in range(num_portfolios):
@@ -97,12 +96,12 @@ plot_efficient_frontier(mean_returns, cov_matrix)
 
 # CODE FOR OPTIMAL PORTFOLIO WITH ESG PENALTY FACTOR
 
-# Penalized objective function: Maximizing Sharpe Ratio with ESG penalties
+# Penalized objective function - Maximizing Sharpe Ratio with ESG penalties
 def negative_sharpe_with_esg_penalty(weights, mean_returns, cov_matrix, esg_scores, esg_penalty_factor=1.5, risk_free_rate=0.04):
     portfolio_return, portfolio_volatility = portfolio_performance(weights, mean_returns, cov_matrix)
     sharpe_ratio = (portfolio_return - risk_free_rate) / portfolio_volatility
     
-    # Amplified ESG penalty: penalize low ESG scores using squared penalty
+    # Amplified ESG penalty - penalize low ESG scores using squared penalty
     esg_penalty = np.sum(weights * ((1 - esg_scores / 100) ** 2) * esg_penalty_factor)  # Higher penalty for lower scores
     return -(sharpe_ratio - esg_penalty)
 
@@ -123,7 +122,7 @@ optimal_esg_score = np.dot(optimal_weights, esg_scores)
 optimal_sharpe_ratio = (optimal_return - risk_free_rate) / optimal_volatility
 
 print(tickers)
-print("Optimal Weights:", optimal_weights)
+print("Optimal Weights:", np.round(optimal_weights,4))
 print("Expected Portfolio Return:", optimal_return)
 print("Expected Portfolio Volatility (Risk):", optimal_volatility)
 print("Optimal ESG Score:", optimal_esg_score)
@@ -145,7 +144,7 @@ def plot_efficient_frontier_esg(mean_returns, cov_matrix, esg_scores, num_portfo
         results[0, i] = portfolio_volatility
         results[1, i] = portfolio_return
         results[2, i] = adjusted_sharpe
-        results[3, i] = weighted_esg_score  # Track ESG score
+        results[3, i] = weighted_esg_score  # To track ESG score
 
     plt.figure(figsize=(10, 6),facecolor='lightblue')
     plt.scatter(results[0, :], results[1, :], c=results[3, :], cmap='cool', marker='o', alpha=0.6)
